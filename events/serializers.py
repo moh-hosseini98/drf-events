@@ -6,7 +6,7 @@ from .models import Event
 
 class EventSerializer(serializers.ModelSerializer):
     organizer = serializers.ReadOnlyField(source="organizer.email")
-    users = serializers.StringRelatedField(many=True)
+    users = serializers.StringRelatedField(read_only=True,many=True)
     class Meta:
         model = Event
         fields = (

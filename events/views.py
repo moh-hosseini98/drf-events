@@ -56,9 +56,11 @@ class RegisterEventAPIView(APIView):
 
    
 
+class UserEventsAPIView(APIView):
+    permission_classes = (permissions.IsAuthenticated,)
+    serializer_class = EventSerializer
 
-
-
-
-
-
+    def get(self,request):
+        events = Event.objects.filter(organizer=self.request.user)
+        serializer = EventSerializer(events,many=True)
+        return Response(serializer.data)
